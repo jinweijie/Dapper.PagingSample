@@ -33,29 +33,29 @@
             this.lConnectionString = new System.Windows.Forms.Label();
             this.txtLevel = new System.Windows.Forms.TextBox();
             this.gbConnection = new System.Windows.Forms.GroupBox();
+            this.btnGenerateInfoLog = new System.Windows.Forms.Button();
             this.gbCriteria = new System.Windows.Forms.GroupBox();
+            this.lMessage = new System.Windows.Forms.Label();
             this.lLevel = new System.Windows.Forms.Label();
             this.txtMessage = new System.Windows.Forms.TextBox();
-            this.lMessage = new System.Windows.Forms.Label();
             this.gbPaging = new System.Windows.Forms.GroupBox();
-            this.lPageIndex = new System.Windows.Forms.Label();
-            this.lPageSize = new System.Windows.Forms.Label();
-            this.txtPageIndex = new System.Windows.Forms.TextBox();
-            this.txtPageSize = new System.Windows.Forms.TextBox();
-            this.btnSearch = new System.Windows.Forms.Button();
-            this.dgvData = new System.Windows.Forms.DataGridView();
-            this.txtSortAsc = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lTotalCountValue = new System.Windows.Forms.Label();
+            this.lTotalCount = new System.Windows.Forms.Label();
+            this.btnPrevious = new System.Windows.Forms.Button();
+            this.btnNext = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txtSortDesc = new System.Windows.Forms.TextBox();
+            this.lPageSize = new System.Windows.Forms.Label();
+            this.txtPageSize = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lPageIndex = new System.Windows.Forms.Label();
+            this.txtSortAsc = new System.Windows.Forms.TextBox();
+            this.txtPageIndex = new System.Windows.Forms.TextBox();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.dgvData = new System.Windows.Forms.DataGridView();
             this.rbNormal = new System.Windows.Forms.RadioButton();
             this.rbOffsetFetch = new System.Windows.Forms.RadioButton();
             this.gbMode = new System.Windows.Forms.GroupBox();
-            this.btnPrevious = new System.Windows.Forms.Button();
-            this.btnNext = new System.Windows.Forms.Button();
-            this.lTotalCount = new System.Windows.Forms.Label();
-            this.lTotalCountValue = new System.Windows.Forms.Label();
-            this.btnGenerateLog = new System.Windows.Forms.Button();
             this.gbConnection.SuspendLayout();
             this.gbCriteria.SuspendLayout();
             this.gbPaging.SuspendLayout();
@@ -99,7 +99,7 @@
             // 
             this.gbConnection.Controls.Add(this.lConnectionString);
             this.gbConnection.Controls.Add(this.txtConnectionString);
-            this.gbConnection.Controls.Add(this.btnGenerateLog);
+            this.gbConnection.Controls.Add(this.btnGenerateInfoLog);
             this.gbConnection.Controls.Add(this.lPrompt);
             this.gbConnection.Location = new System.Drawing.Point(12, 12);
             this.gbConnection.Name = "gbConnection";
@@ -107,6 +107,16 @@
             this.gbConnection.TabIndex = 4;
             this.gbConnection.TabStop = false;
             this.gbConnection.Text = "Database";
+            // 
+            // btnGenerateInfoLog
+            // 
+            this.btnGenerateInfoLog.Location = new System.Drawing.Point(885, 26);
+            this.btnGenerateInfoLog.Name = "btnGenerateInfoLog";
+            this.btnGenerateInfoLog.Size = new System.Drawing.Size(110, 25);
+            this.btnGenerateInfoLog.TabIndex = 7;
+            this.btnGenerateInfoLog.Text = "Generate Info Logs";
+            this.btnGenerateInfoLog.UseVisualStyleBackColor = true;
+            this.btnGenerateInfoLog.Click += new System.EventHandler(this.btnGenerateInfoLog_Click);
             // 
             // gbCriteria
             // 
@@ -120,6 +130,15 @@
             this.gbCriteria.TabIndex = 5;
             this.gbCriteria.TabStop = false;
             this.gbCriteria.Text = "Criteria";
+            // 
+            // lMessage
+            // 
+            this.lMessage.AutoSize = true;
+            this.lMessage.Location = new System.Drawing.Point(214, 22);
+            this.lMessage.Name = "lMessage";
+            this.lMessage.Size = new System.Drawing.Size(53, 13);
+            this.lMessage.TabIndex = 3;
+            this.lMessage.Text = "Message:";
             // 
             // lLevel
             // 
@@ -136,15 +155,6 @@
             this.txtMessage.Name = "txtMessage";
             this.txtMessage.Size = new System.Drawing.Size(100, 20);
             this.txtMessage.TabIndex = 3;
-            // 
-            // lMessage
-            // 
-            this.lMessage.AutoSize = true;
-            this.lMessage.Location = new System.Drawing.Point(214, 22);
-            this.lMessage.Name = "lMessage";
-            this.lMessage.Size = new System.Drawing.Size(53, 13);
-            this.lMessage.TabIndex = 3;
-            this.lMessage.Text = "Message:";
             // 
             // gbPaging
             // 
@@ -167,14 +177,58 @@
             this.gbPaging.TabStop = false;
             this.gbPaging.Text = "Paging";
             // 
-            // lPageIndex
+            // lTotalCountValue
             // 
-            this.lPageIndex.AutoSize = true;
-            this.lPageIndex.Location = new System.Drawing.Point(10, 22);
-            this.lPageIndex.Name = "lPageIndex";
-            this.lPageIndex.Size = new System.Drawing.Size(64, 13);
-            this.lPageIndex.TabIndex = 3;
-            this.lPageIndex.Text = "Page Index:";
+            this.lTotalCountValue.AutoSize = true;
+            this.lTotalCountValue.Location = new System.Drawing.Point(81, 54);
+            this.lTotalCountValue.Name = "lTotalCountValue";
+            this.lTotalCountValue.Size = new System.Drawing.Size(0, 13);
+            this.lTotalCountValue.TabIndex = 15;
+            // 
+            // lTotalCount
+            // 
+            this.lTotalCount.AutoSize = true;
+            this.lTotalCount.Location = new System.Drawing.Point(9, 54);
+            this.lTotalCount.Name = "lTotalCount";
+            this.lTotalCount.Size = new System.Drawing.Size(65, 13);
+            this.lTotalCount.TabIndex = 14;
+            this.lTotalCount.Text = "Total Count:";
+            // 
+            // btnPrevious
+            // 
+            this.btnPrevious.Location = new System.Drawing.Point(311, 45);
+            this.btnPrevious.Name = "btnPrevious";
+            this.btnPrevious.Size = new System.Drawing.Size(85, 23);
+            this.btnPrevious.TabIndex = 13;
+            this.btnPrevious.Text = "Previous Page";
+            this.btnPrevious.UseVisualStyleBackColor = true;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
+            // 
+            // btnNext
+            // 
+            this.btnNext.Location = new System.Drawing.Point(402, 45);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(85, 23);
+            this.btnNext.TabIndex = 13;
+            this.btnNext.Text = "Next Page";
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(340, 22);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(57, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Sort Desc:";
+            // 
+            // txtSortDesc
+            // 
+            this.txtSortDesc.Location = new System.Drawing.Point(402, 19);
+            this.txtSortDesc.Name = "txtSortDesc";
+            this.txtSortDesc.Size = new System.Drawing.Size(85, 20);
+            this.txtSortDesc.TabIndex = 5;
             // 
             // lPageSize
             // 
@@ -185,14 +239,6 @@
             this.lPageSize.TabIndex = 3;
             this.lPageSize.Text = "Page Size:";
             // 
-            // txtPageIndex
-            // 
-            this.txtPageIndex.Location = new System.Drawing.Point(80, 19);
-            this.txtPageIndex.Name = "txtPageIndex";
-            this.txtPageIndex.Size = new System.Drawing.Size(31, 20);
-            this.txtPageIndex.TabIndex = 3;
-            this.txtPageIndex.Text = "0";
-            // 
             // txtPageSize
             // 
             this.txtPageSize.Location = new System.Drawing.Point(181, 19);
@@ -200,6 +246,40 @@
             this.txtPageSize.Size = new System.Drawing.Size(37, 20);
             this.txtPageSize.TabIndex = 3;
             this.txtPageSize.Text = "10";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(220, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(50, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Sort Asc:";
+            // 
+            // lPageIndex
+            // 
+            this.lPageIndex.AutoSize = true;
+            this.lPageIndex.Location = new System.Drawing.Point(10, 22);
+            this.lPageIndex.Name = "lPageIndex";
+            this.lPageIndex.Size = new System.Drawing.Size(64, 13);
+            this.lPageIndex.TabIndex = 3;
+            this.lPageIndex.Text = "Page Index:";
+            // 
+            // txtSortAsc
+            // 
+            this.txtSortAsc.Location = new System.Drawing.Point(272, 19);
+            this.txtSortAsc.Name = "txtSortAsc";
+            this.txtSortAsc.Size = new System.Drawing.Size(62, 20);
+            this.txtSortAsc.TabIndex = 3;
+            this.txtSortAsc.Text = "CreateTime";
+            // 
+            // txtPageIndex
+            // 
+            this.txtPageIndex.Location = new System.Drawing.Point(80, 19);
+            this.txtPageIndex.Name = "txtPageIndex";
+            this.txtPageIndex.Size = new System.Drawing.Size(31, 20);
+            this.txtPageIndex.TabIndex = 3;
+            this.txtPageIndex.Text = "0";
             // 
             // btnSearch
             // 
@@ -218,39 +298,6 @@
             this.dgvData.Name = "dgvData";
             this.dgvData.Size = new System.Drawing.Size(1000, 348);
             this.dgvData.TabIndex = 9;
-            // 
-            // txtSortAsc
-            // 
-            this.txtSortAsc.Location = new System.Drawing.Point(272, 19);
-            this.txtSortAsc.Name = "txtSortAsc";
-            this.txtSortAsc.Size = new System.Drawing.Size(62, 20);
-            this.txtSortAsc.TabIndex = 3;
-            this.txtSortAsc.Text = "CreateTime";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(220, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Sort Asc:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(340, 22);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Sort Desc:";
-            // 
-            // txtSortDesc
-            // 
-            this.txtSortDesc.Location = new System.Drawing.Point(402, 19);
-            this.txtSortDesc.Name = "txtSortDesc";
-            this.txtSortDesc.Size = new System.Drawing.Size(85, 20);
-            this.txtSortDesc.TabIndex = 5;
             // 
             // rbNormal
             // 
@@ -284,53 +331,6 @@
             this.gbMode.TabIndex = 12;
             this.gbMode.TabStop = false;
             this.gbMode.Text = "Mode";
-            // 
-            // btnPrevious
-            // 
-            this.btnPrevious.Location = new System.Drawing.Point(311, 45);
-            this.btnPrevious.Name = "btnPrevious";
-            this.btnPrevious.Size = new System.Drawing.Size(85, 23);
-            this.btnPrevious.TabIndex = 13;
-            this.btnPrevious.Text = "Previous Page";
-            this.btnPrevious.UseVisualStyleBackColor = true;
-            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
-            // 
-            // btnNext
-            // 
-            this.btnNext.Location = new System.Drawing.Point(402, 45);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(85, 23);
-            this.btnNext.TabIndex = 13;
-            this.btnNext.Text = "Next Page";
-            this.btnNext.UseVisualStyleBackColor = true;
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
-            // 
-            // lTotalCount
-            // 
-            this.lTotalCount.AutoSize = true;
-            this.lTotalCount.Location = new System.Drawing.Point(9, 54);
-            this.lTotalCount.Name = "lTotalCount";
-            this.lTotalCount.Size = new System.Drawing.Size(65, 13);
-            this.lTotalCount.TabIndex = 14;
-            this.lTotalCount.Text = "Total Count:";
-            // 
-            // lTotalCountValue
-            // 
-            this.lTotalCountValue.AutoSize = true;
-            this.lTotalCountValue.Location = new System.Drawing.Point(81, 54);
-            this.lTotalCountValue.Name = "lTotalCountValue";
-            this.lTotalCountValue.Size = new System.Drawing.Size(0, 13);
-            this.lTotalCountValue.TabIndex = 15;
-            // 
-            // btnGenerateLog
-            // 
-            this.btnGenerateLog.Location = new System.Drawing.Point(895, 26);
-            this.btnGenerateLog.Name = "btnGenerateLog";
-            this.btnGenerateLog.Size = new System.Drawing.Size(91, 25);
-            this.btnGenerateLog.TabIndex = 7;
-            this.btnGenerateLog.Text = "Generate Logs";
-            this.btnGenerateLog.UseVisualStyleBackColor = true;
-            this.btnGenerateLog.Click += new System.EventHandler(this.btnGenerateLog_Click);
             // 
             // Main
             // 
@@ -388,7 +388,7 @@
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Label lTotalCount;
         private System.Windows.Forms.Label lTotalCountValue;
-        private System.Windows.Forms.Button btnGenerateLog;
+        private System.Windows.Forms.Button btnGenerateInfoLog;
     }
 }
 

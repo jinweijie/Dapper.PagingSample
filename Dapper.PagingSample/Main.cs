@@ -100,16 +100,17 @@ namespace Dapper.PagingSample
 
             btnSearch.PerformClick();
         }
-
-        private void btnGenerateLog_Click(object sender, EventArgs e)
+        
+        private void btnGenerateInfoLog_Click(object sender, EventArgs e)
         {
+
             var r = new Random();
             for (int i = 0; i < 100; i++)
             {
-                Logger.InfoFormat("Randomly generated log:{0}", r.Next(1000, 1000000) );
+                Logger.InfoFormat("Randomly generated Info log:{0}", r.Next(1000, 1000000));
             }
 
-            MessageBox.Show("100 log entries has been generated.");
+            MessageBox.Show("100 info log entries has been generated.");
         }
     }
 }

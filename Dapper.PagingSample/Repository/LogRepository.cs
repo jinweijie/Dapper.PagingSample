@@ -27,12 +27,14 @@ namespace Dapper.PagingSample.Repository
             using (IDbConnection connection = base.OpenConnection())
             {
                 const string countQuery = @"SELECT COUNT(1)
-                                            FROM [Log]
+                                            FROM      [Log] l
+                                            INNER JOIN [Level] lv ON l.LevelId = lv.Id
                                             /**where**/";
 
                 const string selectQuery = @"  SELECT  *
-                            FROM    ( SELECT    ROW_NUMBER() OVER ( /**orderby**/ ) AS RowNum, *
-                                      FROM      [Log]
+                            FROM    ( SELECT    ROW_NUMBER() OVER ( /**orderby**/ ) AS RowNum, l.*, lv.Name as [Level]
+                                      FROM      [Log] l
+                                      INNER JOIN [Level] lv ON l.LevelId = lv.Id
                                       /**where**/
                                     ) AS RowConstrainedResult
                             WHERE   RowNum >= (@PageIndex * @PageSize + 1 )
@@ -45,12 +47,12 @@ namespace Dapper.PagingSample.Repository
                 var selector = builder.AddTemplate(selectQuery, new { PageIndex = pageIndex, PageSize = pageSize });
 
                 if (!string.IsNullOrEmpty(criteria.Level))
-                    builder.Where("Level = @Level", new { Level = criteria.Level });
+                    builder.Where("lv.Name= @Level", new { Level = criteria.Level });
 
                 if (!string.IsNullOrEmpty(criteria.Message))
                 {
                     var msg = "%" + criteria.Message + "%";
-                    builder.Where("Message Like @Message", new { Message = msg });
+                    builder.Where("l.Message Like @Message", new { Message = msg });
                 }
 
                 foreach (var a in asc)
@@ -83,7 +85,10 @@ namespace Dapper.PagingSample.Repository
             {
                
                 const string selectQuery = @" ;WITH _data AS (
-                                            select * from [Log] /**where**/
+                                            SELECT l.*, lv.Name AS [Level]
+                                            FROM      [Log] l
+                                            INNER JOIN [Level] lv ON l.LevelId = lv.Id
+                                            /**where**/
                                         ),
                                             _count AS (
                                                 SELECT COUNT(1) AS TotalCount FROM _data
@@ -95,12 +100,12 @@ namespace Dapper.PagingSample.Repository
                 var selector = builder.AddTemplate(selectQuery, new { PageIndex = pageIndex, PageSize = pageSize });
 
                 if (!string.IsNullOrEmpty(criteria.Level))
-                    builder.Where("Level = @Level", new { Level = criteria.Level });
+                    builder.Where("lv.Name = @Level", new { Level = criteria.Level });
 
                 if (!string.IsNullOrEmpty(criteria.Message))
                 {
                     var msg = "%" + criteria.Message + "%";
-                    builder.Where("Message Like @Message", new { Message = msg });
+                    builder.Where("l.Message Like @Message", new { Message = msg });
                 }
                 
                 foreach (var a in asc)
