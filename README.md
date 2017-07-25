@@ -15,8 +15,7 @@ Sample for custom pagination using Dapper. Supporting sorting + criteria + pagin
  Tuple<IEnumerable<Log>, int> Find(LogSearchCriteria criteria
             , int pageIndex
             , int pageSize
-            , string[] asc
-            , string[] desc);
+            , List<SortDescriptor> sortings);
 ```
 
 # Two Approaches

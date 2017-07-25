@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Dapper.PagingSample.Common;
 using Dapper.PagingSample.Entity;
 using Dapper.PagingSample.Logging;
 using Dapper.PagingSample.Repository;
@@ -50,22 +51,28 @@ namespace Dapper.PagingSample
             var repo = GetRepository();
             Tuple<IEnumerable<Log>, int> result;
 
+            var sortings = new List<SortDescriptor>();
+            if (!string.IsNullOrWhiteSpace(this.txtSortAsc.Text))
+                sortings.Add(new SortDescriptor { Direction = SortDescriptor.SortingDirection.Ascending, Field = this.txtSortAsc.Text.Trim() });
+
+            if (!string.IsNullOrWhiteSpace(this.txtSortDesc.Text))
+                sortings.Add(new SortDescriptor { Direction = SortDescriptor.SortingDirection.Descending, Field = this.txtSortDesc.Text.Trim() });
+
+
             if (this.rbNormal.Checked)
             {
 
                 result = repo.Find(GetCritera(),
                     int.Parse(this.txtPageIndex.Text),
                     int.Parse(this.txtPageSize.Text),
-                    new[] { this.txtSortAsc.Text },
-                    new string[] { this.txtSortDesc.Text });
+                    sortings);
             }
             else if(rbOffsetFetch.Checked)
             {
                 result = repo.FindWithOffsetFetch(GetCritera(),
                     int.Parse(this.txtPageIndex.Text),
                     int.Parse(this.txtPageSize.Text),
-                    new[] { this.txtSortAsc.Text },
-                    new string[] { this.txtSortDesc.Text });
+                    sortings);
             }
             else
             {

@@ -21,8 +21,7 @@ namespace Dapper.PagingSample.Repository
         public Tuple<IEnumerable<Log>, int> Find(LogSearchCriteria criteria
             , int pageIndex
             , int pageSize
-            , string[] asc
-            , string[] desc)
+            , List<SortDescriptor> sortings)
         {
             using (IDbConnection connection = base.OpenConnection())
             {
@@ -55,18 +54,17 @@ namespace Dapper.PagingSample.Repository
                     builder.Where("l.Message Like @Message", new { Message = msg });
                 }
 
-                foreach (var a in asc)
+                foreach (var sorting in sortings)
                 {
-                    if(!string.IsNullOrWhiteSpace(a))
-                        builder.OrderBy(a);
-                }
+                    if (string.IsNullOrWhiteSpace(sorting.Field))
+                        continue;
 
-                foreach (var d in desc)
-                {
-                    if (!string.IsNullOrWhiteSpace(d))
-                        builder.OrderBy(d + " desc");
+                    if(sorting.Direction == SortDescriptor.SortingDirection.Ascending)
+                        builder.OrderBy(sorting.Field);
+                    else if(sorting.Direction == SortDescriptor.SortingDirection.Descending)
+                        builder.OrderBy(sorting.Field + " desc");
                 }
-
+                
                 var totalCount = connection.Query<int>(count.RawSql, count.Parameters).Single();
                 var rows = connection.Query<Log>(selector.RawSql, selector.Parameters);
 
@@ -78,8 +76,7 @@ namespace Dapper.PagingSample.Repository
         public Tuple<IEnumerable<Log>, int> FindWithOffsetFetch(LogSearchCriteria criteria
                                                 , int pageIndex
                                                 , int pageSize
-                                                , string[] asc
-                                                , string[] desc)
+                                                , List<SortDescriptor> sortings)
         {
             using (IDbConnection connection = base.OpenConnection())
             {
@@ -107,19 +104,18 @@ namespace Dapper.PagingSample.Repository
                     var msg = "%" + criteria.Message + "%";
                     builder.Where("l.Message Like @Message", new { Message = msg });
                 }
-                
-                foreach (var a in asc)
+
+                foreach (var sorting in sortings)
                 {
-                    if (!string.IsNullOrWhiteSpace(a))
-                        builder.OrderBy(a);
+                    if (string.IsNullOrWhiteSpace(sorting.Field))
+                        continue;
+
+                    if (sorting.Direction == SortDescriptor.SortingDirection.Ascending)
+                        builder.OrderBy(sorting.Field);
+                    else if (sorting.Direction == SortDescriptor.SortingDirection.Descending)
+                        builder.OrderBy(sorting.Field + " desc");
                 }
 
-                foreach (var d in desc)
-                {
-                    if (!string.IsNullOrWhiteSpace(d))
-                        builder.OrderBy(d + " desc");
-                }
-                
                 var rows = connection.Query<Log>(selector.RawSql, selector.Parameters).ToList();
 
                 if(rows.Count == 0)

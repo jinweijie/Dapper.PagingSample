@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Packages\LibLog.4.2\LibLog.cs" />
+    <Compile Include="Common\SortDescriptor.cs" />
     <Compile Include="Common\SqlBuilder.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
